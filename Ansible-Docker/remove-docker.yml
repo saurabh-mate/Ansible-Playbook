@@ -1,0 +1,19 @@
+---
+- name: Remove Docker on Ubuntu server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Remove Docker
+      apt:
+        name: docker.io
+        state: absent
+
+    - name: Ensure Docker service is Stopped
+      service:
+        name: docker
+        state: stopped
+        enabled: yes
